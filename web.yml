@@ -1,0 +1,19 @@
+- hosts: ubuntu
+  vars_prompt:
+  - name: r_user
+    prompt: "Enter the Remote User"
+    private: no
+  remote_user: "{{ r_user }}"
+  vars_files:
+  - "{{ ansible_facts['distribution'] }}:{{ ansible_facts['distribution_version'] }}"
+  tasks:
+  - name: "The OS Name and Version"
+    debug:
+      msg: "{{ ansible_facts['distribution'] }}:{{ ansible_facts['distribution_version'] }}" 
+
+
+  - name: Installing the Webserver
+    package:
+      name: "{{ app_name }}"
+      state: present
+
